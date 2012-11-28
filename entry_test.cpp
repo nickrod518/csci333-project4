@@ -5,7 +5,7 @@ using std::cout;
 using std::endl;
 
 int main() {
-  Entry<string> s = Entry<string>("hello", "world");
+  Entry<string> s("hello", "world");
 
   cout << "Key: " << s.getKey() << endl;
   cout << "Value: " << s.getValue() << endl;;
