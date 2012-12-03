@@ -10,22 +10,31 @@ template <typename V>
 void Hash<V>::insert(string k, V v) {
   Entry<V> newEntry = Entry<V>(k, v);
   int x = hash(k);
-  table[x].push_back(newEntry);
-}
-
-template <typename V>
-bool Hash<V>::find(string k) {
-  int x = hash(k);
+  bool exist = false;
 
   for (int i = 0; i < (int) table[x].size(); ++i) {
     if (table[x][i].getKey() == k) {
-      cout << "Found, with a value of: " << table[x][i].getValue() << endl;
-      return true;
+      exist = true;
+      table[x][i].setValue(v);
     }
   }
 
+  if (!exist)
+    table[x].push_back(newEntry);
+}
+
+template <typename V>
+V Hash<V>::find(string k) {
+  int x = hash(k);
+
+  for (int i = 0; i < (int) table[x].size(); ++i) {
+    if (table[x][i].getKey() == k)
+      return table[x][i].getValue();
+  }
+
+  // if not found, return 0 casted as type V
   cout << "Key not found" << endl;
-  return false;
+  return (V) 0;
 }
 
 template <typename V>
@@ -43,9 +52,8 @@ int Hash<V>::hash(string s) {
   int hash;
   int sum = 0;
 
-  for (int i = 0; i < (int) s.size(); ++i) {
+  for (int i = 0; i < (int) s.size(); ++i)
     sum += (int) s[i];
-  }
 
   hash = sum%size;
 

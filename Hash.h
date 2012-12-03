@@ -19,7 +19,7 @@ class Hash {
   public:
     Hash<V>();
     void insert(string k, V v);
-    bool find(string k);
+    V find(string k);
     void remove(string k);
 };
 
